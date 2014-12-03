@@ -1,7 +1,12 @@
 #import <stdio.h>
 #import <SDL2/SDL.h>
+#import <SDL2/SDL_video.h>
+#import <SDL2/SDL_shape.h>
 
 #import "main.h"
+
+#define RESOLUTION_X 2880
+#define RESOLUTION_Y 1800
 
 int main(int argc, char** argv) {
   setup();
@@ -27,17 +32,16 @@ void die() {
 }
 
 void demoscene() {
-  SDL_Window* window = SDL_CreateWindow("DEMO SCENE!!!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
-  if (window == NULL) {
-    printf("Cannot create window: %s\n", SDL_GetError());
-    die();
-  }
+  SDL_Window* window;
+  SDL_Renderer* renderer;
 
-  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_ACCELERATED);
-  if (renderer == NULL) {
-    printf("Cannot create renderer: %s\n", SDL_GetError());
+  if (SDL_CreateWindowAndRenderer(RESOLUTION_X, RESOLUTION_Y, SDL_WINDOW_FULLSCREEN | SDL_WINDOW_ALLOW_HIGHDPI, &window, &renderer) != 0) {
+    printf("Cannot create window or renderer: %s\n", SDL_GetError());
     die();
   }
 
   SDL_Delay(5000);
+
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
 }
