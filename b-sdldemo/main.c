@@ -13,7 +13,7 @@ void setup() {
   if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
     printf("Error. Could not initialize SDL: %s\n", SDL_GetError());
     teardown();
-    exit(0);
+    exit(1);
   }
 }
 
