@@ -10,8 +10,8 @@ tags:
 bin:
 	mkdir -p bin
 
-main-debug: main.c
+main-debug: main.c main.h
 	gcc $(STANDARD_ARGS) -O0 -g -o bin/main $(FILES)
 
-main-release: main.c
+main-release: main.c main.h
 	gcc $(STANDARD_ARGS) -O2 -o bin/main-release $(FILES)
