@@ -1,4 +1,7 @@
 #import <stdio.h>
+#import <stdlib.h>
+#import <time.h>
+
 #import <SDL2/SDL.h>
 #import <SDL2/SDL_video.h>
 #import <SDL2/SDL_shape.h>
@@ -9,6 +12,8 @@
 #define RESOLUTION_Y 1800
 
 int main(int argc, char** argv) {
+  srand(time(NULL));
+
   setup();
   run();
   teardown();
@@ -51,23 +56,37 @@ void run() {
     die();
   }
 
-  demoscene();
+  demoscene(renderer);
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
 }
 
-void demoscene() {
+void demoscene(SDL_Renderer* renderer) {
   init_demostate();
   while(!demostate.quit) {
     handle_events();
     update();
-    render();
+    render(renderer);
   }
 }
 
 void init_demostate() {
   demostate.quit = 0;
+
+  demostate.a_x = random_int(RESOLUTION_X);
+  demostate.a_y = random_int(RESOLUTION_Y);
+
+  demostate.b_x = random_int(RESOLUTION_X);
+  demostate.b_y = random_int(RESOLUTION_Y);
+}
+
+int random_int(int max) {
+  return random_int_range(0, max);
+}
+
+int random_int_range(int min, int max) {
+  return rand() % (max - min) + min;
 }
 
 void handle_events() {
@@ -84,9 +103,16 @@ void handle_events() {
 }
 
 void update() {
-  // TODO
+  demostate.b_x += random_int_range(-2, 2);
+  demostate.b_y += random_int_range(-2, 2);
 }
 
-void render() {
-  // TODO
+void render(SDL_Renderer* renderer) {
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+  SDL_RenderClear(renderer);
+
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+  SDL_RenderDrawLine(renderer, demostate.a_x, demostate.a_y, demostate.b_x, demostate.b_y);
+
+  SDL_RenderPresent(renderer);
 }
