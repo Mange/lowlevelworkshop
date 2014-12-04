@@ -57,18 +57,33 @@ void run() {
   SDL_DestroyWindow(window);
 }
 
+int quit = 0;
+
 void demoscene() {
-  int quit = 0;
+  while(!quit) {
+    handle_events();
+    update();
+    render();
+  }
+}
+
+void handle_events() {
   SDL_Event event;
 
-  while(!quit) {
-    while(SDL_PollEvent(&event)) {
-      switch(event.type) {
-        case SDL_QUIT:
-        case SDL_KEYDOWN:
-        case SDL_MOUSEBUTTONDOWN:
-          quit = 1;
-      }
+  while(SDL_PollEvent(&event)) {
+    switch(event.type) {
+      case SDL_QUIT:
+      case SDL_KEYDOWN:
+      case SDL_MOUSEBUTTONDOWN:
+        quit = 1;
     }
   }
+}
+
+void update() {
+  // TODO
+}
+
+void render() {
+  // TODO
 }
