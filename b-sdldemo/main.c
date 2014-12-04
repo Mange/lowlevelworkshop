@@ -10,14 +10,14 @@
 
 int main(int argc, char** argv) {
   setup();
-  demoscene();
+  run();
   teardown();
   return 0;
 }
 
 void setup() {
   if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-    printf("Error. Could not initialize SDL: %s\n", SDL_GetError());
+    print_sdl_error("Could not initialize SDL");
     die();
   }
 }
@@ -31,12 +31,23 @@ void die() {
   exit(1);
 }
 
-void demoscene() {
+void print_sdl_error(char* message) {
+  printf("Error! %s: %s\n", message, SDL_GetError());
+}
+
+void run() {
   SDL_Window* window;
   SDL_Renderer* renderer;
 
-  if (SDL_CreateWindowAndRenderer(RESOLUTION_X, RESOLUTION_Y, SDL_WINDOW_FULLSCREEN | SDL_WINDOW_ALLOW_HIGHDPI, &window, &renderer) != 0) {
-    printf("Cannot create window or renderer: %s\n", SDL_GetError());
+  if (
+    0 != SDL_CreateWindowAndRenderer(
+      RESOLUTION_X,
+      RESOLUTION_Y,
+      SDL_WINDOW_FULLSCREEN | SDL_WINDOW_ALLOW_HIGHDPI,
+      &window, &renderer
+    )
+  ) {
+    print_sdl_error("Cannot create window or renderer");
     die();
   }
 
