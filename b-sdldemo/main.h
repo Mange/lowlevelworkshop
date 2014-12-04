@@ -9,4 +9,8 @@ void render();
 void die();
 void print_sdl_error(char *);
 
-int quit;
+void init_demostate();
+
+struct {
+  int quit;
+} demostate;

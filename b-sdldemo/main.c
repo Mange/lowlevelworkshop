@@ -57,14 +57,17 @@ void run() {
   SDL_DestroyWindow(window);
 }
 
-int quit = 0;
-
 void demoscene() {
-  while(!quit) {
+  init_demostate();
+  while(!demostate.quit) {
     handle_events();
     update();
     render();
   }
+}
+
+void init_demostate() {
+  demostate.quit = 0;
 }
 
 void handle_events() {
@@ -75,7 +78,7 @@ void handle_events() {
       case SDL_QUIT:
       case SDL_KEYDOWN:
       case SDL_MOUSEBUTTONDOWN:
-        quit = 1;
+        demostate.quit = 1;
     }
   }
 }
