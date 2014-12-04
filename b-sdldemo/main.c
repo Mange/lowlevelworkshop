@@ -51,8 +51,24 @@ void run() {
     die();
   }
 
-  SDL_Delay(5000);
+  demoscene();
 
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
+}
+
+void demoscene() {
+  int quit = 0;
+  SDL_Event event;
+
+  while(!quit) {
+    while(SDL_PollEvent(&event)) {
+      switch(event.type) {
+        case SDL_QUIT:
+        case SDL_KEYDOWN:
+        case SDL_MOUSEBUTTONDOWN:
+          quit = 1;
+      }
+    }
+  }
 }
