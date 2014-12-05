@@ -1,3 +1,6 @@
+#ifndef MAIN_H
+#define MAIN_H
+
 int main(int, char**);
 void setup();
 void teardown();
@@ -11,9 +14,6 @@ void print_sdl_error(char*);
 
 void init_demostate();
 
-int random_int(int);
-int random_int_range(int, int);
-
 struct {
   int quit;
 
@@ -23,3 +23,5 @@ struct {
   int b_x;
   int b_y;
 } demostate;
+
+#endif

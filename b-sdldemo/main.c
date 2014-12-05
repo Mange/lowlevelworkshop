@@ -1,5 +1,4 @@
 #import <stdio.h>
-#import <stdlib.h>
 #import <time.h>
 
 #import <SDL2/SDL.h>
@@ -7,6 +6,7 @@
 #import <SDL2/SDL_shape.h>
 
 #import "main.h"
+#import "utils.h"
 
 #define RESOLUTION_X 2880
 #define RESOLUTION_Y 1800
@@ -79,14 +79,6 @@ void init_demostate() {
 
   demostate.b_x = random_int(RESOLUTION_X);
   demostate.b_y = random_int(RESOLUTION_Y);
-}
-
-int random_int(int max) {
-  return random_int_range(0, max);
-}
-
-int random_int_range(int min, int max) {
-  return rand() % (max - min) + min;
 }
 
 void handle_events() {
