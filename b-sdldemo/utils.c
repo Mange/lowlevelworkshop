@@ -6,6 +6,9 @@ int random_int(int max) {
 }
 
 int random_int_range(int min, int max) {
-  return rand() % (max - min) + min;
+  // We need to work in a range of positive integers for the math to work
+  // properly here.
+  int length = abs(max - min);
+  return rand() % (length + 1) + min;
 }
 
